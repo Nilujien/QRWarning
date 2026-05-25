@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avertissement de sécurité</title>
+    <title>⚠ ALERTE SÉCURITÉ CRITIQUE ⚠</title>
     <style>
       * {
         margin: 0;
@@ -12,8 +12,8 @@
       }
 
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #1a0000 0%, #2d0a0a 50%, #4a0000 100%);
+        font-family: 'Courier New', monospace;
+        background: #000000;
         min-height: 100vh;
         display: flex;
         justify-content: center;
@@ -21,6 +21,16 @@
         padding: 20px;
         position: relative;
         overflow: hidden;
+      }
+
+      #matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0.15;
       }
 
       body::before {
@@ -33,10 +43,12 @@
             0deg,
             transparent,
             transparent 2px,
-            rgba(255, 0, 0, 0.03) 2px,
-            rgba(255, 0, 0, 0.03) 4px
+            rgba(255, 0, 0, 0.05) 2px,
+            rgba(255, 0, 0, 0.05) 4px
           );
-        animation: scanlines 10s linear infinite;
+        animation: scanlines 8s linear infinite;
+        z-index: 1;
+        pointer-events: none;
       }
 
       @keyframes scanlines {
@@ -47,38 +59,43 @@
       body::after {
         content: '';
         position: absolute;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
-        animation: pulse 4s ease-in-out infinite;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(ellipse at top, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
+          radial-gradient(ellipse at bottom, rgba(139, 0, 0, 0.2) 0%, transparent 50%);
+        animation: pulse 3s ease-in-out infinite;
+        z-index: 1;
+        pointer-events: none;
       }
 
       @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.3; }
-        50% { transform: scale(1.2); opacity: 0.6; }
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
       }
 
       main {
         position: relative;
-        z-index: 1;
-        background: rgba(20, 5, 5, 0.85);
+        z-index: 10;
+        background: rgba(10, 0, 0, 0.95);
         backdrop-filter: blur(10px);
-        border: 3px solid rgba(239, 68, 68, 0.5);
-        border-radius: 20px;
+        border: 3px solid #ff0000;
+        border-radius: 5px;
         padding: 60px 50px;
-        max-width: 800px;
+        max-width: 900px;
         width: 100%;
         box-shadow:
-          0 20px 60px rgba(0, 0, 0, 0.7),
-          0 0 80px rgba(239, 68, 68, 0.3),
-          inset 0 0 60px rgba(239, 68, 68, 0.1);
-        animation: slideIn 0.8s ease-out, borderPulse 2s ease-in-out infinite;
+          0 0 100px rgba(255, 0, 0, 0.5),
+          0 0 200px rgba(255, 0, 0, 0.3),
+          inset 0 0 100px rgba(255, 0, 0, 0.1),
+          0 20px 60px rgba(0, 0, 0, 0.9);
+        animation: slideIn 0.8s ease-out, borderPulse 1.5s ease-in-out infinite, shake 0.5s ease-in-out 1s;
       }
 
       @keyframes slideIn {
         from {
           opacity: 0;
-          transform: translateY(-30px) scale(0.95);
+          transform: translateY(-50px) scale(0.9);
         }
         to {
           opacity: 1;
@@ -86,68 +103,87 @@
         }
       }
 
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+        20%, 40%, 60%, 80% { transform: translateX(3px); }
+      }
+
       @keyframes borderPulse {
         0%, 100% {
-          border-color: rgba(239, 68, 68, 0.5);
+          border-color: #ff0000;
           box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.7),
-            0 0 80px rgba(239, 68, 68, 0.3),
-            inset 0 0 60px rgba(239, 68, 68, 0.1);
+            0 0 100px rgba(255, 0, 0, 0.5),
+            0 0 200px rgba(255, 0, 0, 0.3),
+            inset 0 0 100px rgba(255, 0, 0, 0.1),
+            0 20px 60px rgba(0, 0, 0, 0.9);
         }
         50% {
-          border-color: rgba(239, 68, 68, 0.8);
+          border-color: #ff3333;
           box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.7),
-            0 0 100px rgba(239, 68, 68, 0.5),
-            inset 0 0 80px rgba(239, 68, 68, 0.2);
+            0 0 150px rgba(255, 0, 0, 0.8),
+            0 0 250px rgba(255, 0, 0, 0.5),
+            inset 0 0 150px rgba(255, 0, 0, 0.2),
+            0 20px 60px rgba(0, 0, 0, 0.9);
         }
       }
 
       .warning-icon {
         text-align: center;
-        font-size: 5rem;
+        font-size: 6rem;
         margin-bottom: 30px;
-        animation: iconBlink 1.5s ease-in-out infinite;
+        animation: iconBlink 1s ease-in-out infinite, iconShake 3s ease-in-out infinite;
+        filter: drop-shadow(0 0 30px rgba(255, 0, 0, 1));
       }
 
       @keyframes iconBlink {
         0%, 100% {
           opacity: 1;
-          filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.8));
+          transform: scale(1);
         }
         50% {
-          opacity: 0.5;
-          filter: drop-shadow(0 0 40px rgba(239, 68, 68, 1));
+          opacity: 0.3;
+          transform: scale(1.1);
         }
       }
 
+      @keyframes iconShake {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+      }
+
       h1 {
-        color: #ef4444;
+        color: #ff0000;
         text-align: center;
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 40px;
         text-transform: uppercase;
-        letter-spacing: 3px;
+        letter-spacing: 5px;
+        font-weight: 900;
         text-shadow:
-          0 0 30px rgba(239, 68, 68, 0.8),
-          0 0 60px rgba(239, 68, 68, 0.5),
-          0 2px 4px rgba(0, 0, 0, 0.8);
-        animation: glow 1.5s ease-in-out infinite;
-        line-height: 1.3;
+          0 0 40px rgba(255, 0, 0, 1),
+          0 0 80px rgba(255, 0, 0, 0.8),
+          0 0 120px rgba(255, 0, 0, 0.6),
+          2px 2px 4px rgba(0, 0, 0, 1);
+        animation: glow 1s ease-in-out infinite, glitchText 5s infinite;
+        line-height: 1.2;
       }
 
       @keyframes glow {
         0%, 100% {
           text-shadow:
-            0 0 30px rgba(239, 68, 68, 0.8),
-            0 0 60px rgba(239, 68, 68, 0.5),
-            0 2px 4px rgba(0, 0, 0, 0.8);
+            0 0 40px rgba(255, 0, 0, 1),
+            0 0 80px rgba(255, 0, 0, 0.8),
+            0 0 120px rgba(255, 0, 0, 0.6),
+            2px 2px 4px rgba(0, 0, 0, 1);
         }
         50% {
           text-shadow:
-            0 0 40px rgba(239, 68, 68, 1),
-            0 0 80px rgba(239, 68, 68, 0.7),
-            0 2px 4px rgba(0, 0, 0, 0.8);
+            0 0 60px rgba(255, 0, 0, 1),
+            0 0 100px rgba(255, 0, 0, 1),
+            0 0 160px rgba(255, 0, 0, 0.8),
+            2px 2px 4px rgba(0, 0, 0, 1);
         }
       }
 
@@ -221,16 +257,15 @@
 
       .glitch {
         position: relative;
-        animation: glitchText 3s infinite;
       }
 
       @keyframes glitchText {
-        0%, 90%, 100% { transform: translate(0); }
-        91% { transform: translate(-2px, 2px); }
-        92% { transform: translate(2px, -2px); }
-        93% { transform: translate(-2px, -2px); }
-        94% { transform: translate(2px, 2px); }
-        95% { transform: translate(0); }
+        0%, 85%, 100% { transform: translate(0); }
+        86% { transform: translate(-3px, 3px); clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+        87% { transform: translate(3px, -3px); clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+        88% { transform: translate(-3px, -3px); }
+        89% { transform: translate(3px, 3px); }
+        90% { transform: translate(0); }
       }
 
       @media (max-width: 768px) {
@@ -272,9 +307,86 @@
           letter-spacing: 1px;
         }
       }
+
+      .threat-level {
+        background: rgba(255, 0, 0, 0.2);
+        border: 2px solid #ff0000;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 30px;
+        font-family: 'Courier New', monospace;
+      }
+
+      .threat-level-header {
+        color: #ff0000;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .threat-metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        color: #ff6666;
+      }
+
+      .metric {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: rgba(0, 0, 0, 0.5);
+        border-left: 3px solid #ff0000;
+        font-size: 0.95rem;
+      }
+
+      .metric-label {
+        color: #ff9999;
+      }
+
+      .metric-value {
+        color: #ff0000;
+        font-weight: bold;
+        animation: valueFlicker 2s infinite;
+      }
+
+      @keyframes valueFlicker {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+
+      .system-alert {
+        margin-top: 25px;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid #ff0000;
+        border-radius: 3px;
+        color: #ff3333;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        text-align: left;
+        line-height: 1.8;
+      }
+
+      .system-alert::before {
+        content: '> ';
+        color: #ff0000;
+      }
+
+      .blink {
+        animation: blinker 1.5s linear infinite;
+      }
+
+      @keyframes blinker {
+        50% { opacity: 0; }
+      }
     </style>
   </head>
   <body>
+    <canvas id="matrix-bg"></canvas>
     <main>
       <div class="corner-decoration top-left"></div>
       <div class="corner-decoration top-right"></div>
@@ -282,7 +394,7 @@
       <div class="corner-decoration bottom-right"></div>
 
       <div class="warning-icon">⚠️</div>
-      <h1 class="glitch">Attention, vos données ne sont pas en sécurité</h1>
+      <h1 class="glitch">⚠ ALERTE CRITIQUE - VOS DONNÉES SONT COMPROMISES ⚠</h1>
 
       <div class="alert-bars">
         <div class="bar"></div>
@@ -291,6 +403,73 @@
         <div class="bar"></div>
         <div class="bar"></div>
       </div>
+
+      <div class="threat-level">
+        <div class="threat-level-header">[ NIVEAU DE MENACE : <span class="blink">CRITIQUE</span> ]</div>
+        <div class="threat-metrics">
+          <div class="metric">
+            <span class="metric-label">INTRUSIONS DÉTECTÉES:</span>
+            <span class="metric-value">█████ 99.9%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">SÉCURITÉ SYSTÈME:</span>
+            <span class="metric-value">COMPROMISE</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">DONNÉES EXPOSÉES:</span>
+            <span class="metric-value">MAXIMUM</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">FIREWALL STATUS:</span>
+            <span class="metric-value">DÉSACTIVÉ</span>
+          </div>
+        </div>
+        <div class="system-alert">
+          SYSTÈME: Accès non autorisé détecté<br>
+          SYSTÈME: Cryptage des données en cours...<br>
+          SYSTÈME: Protection antivirus <span class="blink">DÉSACTIVÉE</span><br>
+          SYSTÈME: Connexions suspectes: 247 actives<br>
+          SYSTÈME: Temps avant violation totale: <span class="blink">IMMINENT</span>
+        </div>
+      </div>
     </main>
+    <script>
+      // Matrix digital rain effect
+      const canvas = document.getElementById('matrix-bg');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+
+      function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#ff0000';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(drawMatrix, 50);
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    </script>
   </body>
 </html>
