@@ -14,7 +14,7 @@
       body {
         font-family: 'Courier New', monospace;
         background: #000000;
-        min-height: 100vh;
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -81,15 +81,41 @@
         backdrop-filter: blur(10px);
         border: 3px solid #ff0000;
         border-radius: 5px;
-        padding: 60px 50px;
+        padding: 40px 50px;
         max-width: 900px;
         width: 100%;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
         box-shadow:
           0 0 100px rgba(255, 0, 0, 0.5),
           0 0 200px rgba(255, 0, 0, 0.3),
           inset 0 0 100px rgba(255, 0, 0, 0.1),
           0 20px 60px rgba(0, 0, 0, 0.9);
         animation: slideIn 0.8s ease-out, borderPulse 1.5s ease-in-out infinite, shake 0.5s ease-in-out 1s;
+      }
+
+      main::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      main::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+      }
+
+      main::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #ff0000, #8b0000);
+        border-radius: 5px;
+        border: 1px solid #ff0000;
+      }
+
+      main::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #ff3333, #a00000);
+      }
+
+      main {
+        scrollbar-width: thin;
+        scrollbar-color: #ff0000 rgba(0, 0, 0, 0.5);
       }
 
       @keyframes slideIn {
@@ -130,8 +156,8 @@
 
       .warning-icon {
         text-align: center;
-        font-size: 6rem;
-        margin-bottom: 30px;
+        font-size: 5rem;
+        margin-bottom: 20px;
         animation: iconBlink 1s ease-in-out infinite, iconShake 3s ease-in-out infinite;
         filter: drop-shadow(0 0 30px rgba(255, 0, 0, 1));
       }
@@ -156,10 +182,10 @@
       h1 {
         color: #ff0000;
         text-align: center;
-        font-size: 3rem;
-        margin-bottom: 40px;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
         text-transform: uppercase;
-        letter-spacing: 5px;
+        letter-spacing: 4px;
         font-weight: 900;
         text-shadow:
           0 0 40px rgba(255, 0, 0, 1),
@@ -191,7 +217,7 @@
         display: flex;
         justify-content: center;
         gap: 10px;
-        margin-top: 40px;
+        margin-top: 25px;
       }
 
       .bar {
@@ -269,17 +295,24 @@
       }
 
       @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
         main {
-          padding: 40px 30px;
+          padding: 30px 20px;
+          max-height: calc(100vh - 20px);
         }
 
         .warning-icon {
           font-size: 3.5rem;
+          margin-bottom: 15px;
         }
 
         h1 {
-          font-size: 1.8rem;
+          font-size: 1.5rem;
           letter-spacing: 2px;
+          margin-bottom: 20px;
         }
 
         .bar {
@@ -287,24 +320,123 @@
           height: 5px;
         }
 
+        .alert-bars {
+          margin-top: 20px;
+        }
+
         .corner-decoration {
-          width: 30px;
-          height: 30px;
+          width: 25px;
+          height: 25px;
+        }
+
+        .corner-decoration.top-left,
+        .corner-decoration.top-right {
+          top: 10px;
+        }
+
+        .corner-decoration.bottom-left,
+        .corner-decoration.bottom-right {
+          bottom: 10px;
+        }
+
+        .corner-decoration.top-left,
+        .corner-decoration.bottom-left {
+          left: 10px;
+        }
+
+        .corner-decoration.top-right,
+        .corner-decoration.bottom-right {
+          right: 10px;
+        }
+
+        .threat-level {
+          padding: 12px;
+          margin-top: 15px;
+        }
+
+        .threat-level-header {
+          font-size: 1rem;
+          letter-spacing: 2px;
+          margin-bottom: 12px;
+        }
+
+        .threat-metrics {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .metric {
+          font-size: 0.85rem;
+          padding: 6px 10px;
+        }
+
+        .system-alert {
+          margin-top: 15px;
+          padding: 12px;
+          font-size: 0.8rem;
+          line-height: 1.6;
         }
       }
 
       @media (max-width: 480px) {
+        body {
+          padding: 5px;
+        }
+
         main {
-          padding: 30px 20px;
+          padding: 20px 15px;
+          max-height: calc(100vh - 10px);
         }
 
         .warning-icon {
           font-size: 2.5rem;
+          margin-bottom: 10px;
         }
 
         h1 {
-          font-size: 1.4rem;
+          font-size: 1.2rem;
           letter-spacing: 1px;
+          margin-bottom: 15px;
+        }
+
+        .alert-bars {
+          margin-top: 15px;
+          gap: 8px;
+        }
+
+        .bar {
+          width: 30px;
+          height: 4px;
+        }
+
+        .corner-decoration {
+          width: 20px;
+          height: 20px;
+        }
+
+        .threat-level {
+          padding: 10px;
+          margin-top: 12px;
+        }
+
+        .threat-level-header {
+          font-size: 0.9rem;
+          letter-spacing: 1px;
+          margin-bottom: 10px;
+        }
+
+        .metric {
+          font-size: 0.75rem;
+          padding: 5px 8px;
+          flex-direction: column;
+          gap: 3px;
+        }
+
+        .system-alert {
+          margin-top: 12px;
+          padding: 10px;
+          font-size: 0.7rem;
+          line-height: 1.5;
         }
       }
 
@@ -312,8 +444,8 @@
         background: rgba(255, 0, 0, 0.2);
         border: 2px solid #ff0000;
         border-radius: 5px;
-        padding: 20px;
-        margin-top: 30px;
+        padding: 15px;
+        margin-top: 20px;
         font-family: 'Courier New', monospace;
       }
 
